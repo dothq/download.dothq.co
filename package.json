@@ -1,0 +1,21 @@
+{
+  "name": "download.dothq.co",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dothq/download.dothq.co",
+  "author": "EnderDev <42723993+EnderDev@users.noreply.github.com>",
+  "license": "MPL-2.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc && node dist/index.js",
+    "deploy": "tsc && vercel --prod"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}
