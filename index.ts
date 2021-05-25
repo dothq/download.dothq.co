@@ -55,13 +55,13 @@ app.get("/dot/releases/:os/:arch/:type", async (req, res) => {
             const f = release.assets.find((asset: any) => {
                 if (
                     req.params.os == "windows" &&
-                    asset.name.startsWith("Install") &&
+                    asset.name.startsWith("dot-") &&
                     asset.name.endsWith(".exe")
                 )
                     return asset;
                 if (
                     req.params.os == "macos" &&
-                    asset.name.startsWith("Dot") &&
+                    asset.name.startsWith("dot-") &&
                     asset.name.endsWith(".dmg")
                 )
                     return asset;
