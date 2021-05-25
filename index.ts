@@ -51,7 +51,7 @@ app.get("/dot/releases/:os/:arch/:type", async (req, res) => {
             "https://api.github.com/repos/dothq/browser-desktop/releases"
         );
 
-        r.data.reverse().forEach((release: any) => {
+        r.data.sort((a: any, b: any) => (new Date((b.created_at as any) - (new Date(a.created_at) as any)))).forEach((release: any) => {
             const f = release.assets.find((asset: any) => {
                 if (
                     req.params.os == "windows" &&
