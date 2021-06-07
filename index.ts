@@ -51,30 +51,40 @@ app.get("/dot/releases/:os/:arch/:type", async (req, res) => {
             "https://api.github.com/repos/dothq/browser-desktop/releases"
         );
 
-        r.data.sort((a: any, b: any) => (new Date((b.created_at as any) - (new Date(a.created_at) as any)))).forEach((release: any) => {
-            const f = release.assets.find((asset: any) => {
-                if (
-                    req.params.os == "windows" &&
-                    asset.name.startsWith("dot-") &&
-                    asset.name.endsWith(".exe")
-                )
-                    return asset;
-                if (
-                    req.params.os == "macos" &&
-                    asset.name.startsWith("dot-") &&
-                    asset.name.endsWith(".dmg")
-                )
-                    return asset;
-                if (
-                    req.params.os == "linux" &&
-                    asset.name.startsWith("dot-") &&
-                    asset.name.endsWith(".tar.bz2")
-                )
-                    return asset;
-            });
+        r.data
+            .sort(
+                (a: any, b: any) =>
+                    new Date(
+                        (b.created_at as any) - (new Date(a.created_at) as any)
+                    )
+            )
+            .forEach((release: any) => {
+                const f = release.assets.find((asset: any) => {
+                    if (
+                        req.params.os == "windows" &&
+                        asset.name.startsWith("dot-") &&
+                        asset.name.endsWith(".exe")
+                    )
+                        return asset;
+                    if (
+                        req.params.os == "macos" &&
+                        asset.name.startsWith("dot-") &&
+                        asset.name.endsWith(".dmg")
+                    )
+                        return asset;
+                    if (
+                        req.params.os == "linux" &&
+                        asset.name.startsWith("dot-") &&
+                        asset.name.endsWith(".tar.bz2")
+                    )
+                        return asset;
+                });
 
-            if (f) found = f;
-        });
+                // If you don't check to see if it has been assigned, it will be reassigned
+                // with every new file found. As they are sorted from newest to oldest,
+                // the oldest asset is generally used
+                if (f && !found) found = f;
+            });
 
         console.log(found);
 
